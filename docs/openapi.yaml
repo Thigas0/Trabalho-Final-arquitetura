@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: OpenBiblio API (Refatorado)
+  description: API REST para o módulo de empréstimos e devoluções do OpenBiblio.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+paths:
+  /seed:
+    post:
+      summary: Popula o banco de dados
+      description: Popula o banco de dados em memória com um usuário e um livro para facilitar os testes.
+      responses:
+        '201':
+          description: Seed concluído com sucesso.
+  /loans:
+    post:
+      summary: Realizar Empréstimo
+      description: Cria um novo empréstimo de um livro para um usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - bookId
+              properties:
+                userId:
+                  type: string
+                  example: "user1"
+                bookId:
+                  type: string
+                  example: "book1"
+      responses:
+        '201':
+          description: Empréstimo realizado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  loanId:
+                    type: string
+                  dueDate:
+                    type: string
+                    format: date-time
+        '400':
+          description: Erro de negócio (ex: Livro já emprestado).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /returns:
+    post:
+      summary: Realizar Devolução
+      description: Devolve um livro emprestado, calculando multas e alterando o estado do livro.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - loanId
+              properties:
+                loanId:
+                  type: string
+      responses:
+        '200':
+          description: Devolução realizada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Erro ao realizar devolução.
