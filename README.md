@@ -10,13 +10,13 @@ Este projeto foi construído como trabalho final da disciplina de Arquitetura de
 
 ## Documentação da Arquitetura
 O documento principal, cobrindo as decisões de arquitetura, diagrama C4 e diagramas UML, encontra-se em:
-👉 `docs/arquitetura.md`
+ `docs/arquitetura.md`
 
 As decisões de arquitetura e design em detalhes (ADRs) estão em:
-👉 `docs/adrs/`
+ `docs/adrs/`
 
 O design e contrato da API REST estão em:
-👉 `docs/openapi.yaml`
+ `docs/openapi.yaml`
 
 ## Instalação e Execução
 
